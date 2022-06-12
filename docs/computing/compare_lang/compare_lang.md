@@ -11,6 +11,5 @@
 ## JAX
 
 [公式のインストール手順にしたがってインストールします。](https://github.com/google/jax#installation)
-WindowsでGPUバージョンのJAXを利用する場合、[WSL](https://docs.microsoft.com/ja-jp/windows/wsl/install)で利用するのが良さそうです。
-[WSLでCUDAを有効化](https://docs.microsoft.com/ja-jp/windows/ai/directml/gpu-cuda-in-wsl)し、
-[CuDNN](https://developer.nvidia.com/cudnn)をインストールします。CuDNNのインストールは、[ここ](https://www.kkaneko.jp/tools/ubuntu/ubuntu_cudnn.html)を参考にしました。
+WindowsでGPUバージョンのJAXを利用する場合、[CUDA on WSL](https://docs.microsoft.com/ja-jp/windows/ai/directml/gpu-cuda-in-wsl)を利用します。
+CUDAのインストールは[ここ](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#getting-started-with-cuda-on-wsl)、CuDNNのインストールは、[ここ](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)を見ました。
