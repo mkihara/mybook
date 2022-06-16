@@ -3,7 +3,14 @@
 
 format: jb-book
 root: index
-chapters:
-- file: computing/compare_lang/compare_lang
-  sections:
-  - file: computing/compare_lang/burgers_jax
+options:  # The options key will be applied to all chapters, but not sub-sections
+  numbered: True
+parts:
+- caption: Python v. Julia
+  chapters:
+  - file: python_v_julia/compare_lang
+  - file: python_v_julia/poisson_jax
+  - file: python_v_julia/poisson_julia
+- caption: Julia
+  chapters:
+  - file: julia/array
