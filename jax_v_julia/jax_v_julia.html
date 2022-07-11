@@ -270,7 +270,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id14">
+  <a class="reference internal nav-link" href="#id11">
    まとめ
   </a>
  </li>
@@ -356,7 +356,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id14">
+  <a class="reference internal nav-link" href="#id11">
    まとめ
   </a>
  </li>
@@ -386,7 +386,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><a class="reference external" href="https://github.com/google/jax">JAX</a>: Python関数をJITコンパイル。自動微分に対応し<a class="reference external" href="https://www.tensorflow.org/">TensorFlow</a>、<a class="reference external" href="https://pytorch.org/">PyTorch</a>に続く機械学習ライブラリとして期待</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://julialang.org/">Julia</a>: Pythonのように書けて、計算速度はC言語とPythonの間にある<span id="id2">[<a class="reference internal" href="#id12" title="Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and Alan Edelman. Julia: a fast dynamic language for technical computing. 2012. URL: https://arxiv.org/abs/1209.5145, doi:10.48550/ARXIV.1209.5145.">BKSE12</a>]</span></p></li>
+<li><p><a class="reference external" href="https://julialang.org/">Julia</a>: Pythonのように書けて、計算速度はC言語とPythonの間にある<span id="id2">[<a class="reference internal" href="#id13" title="Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and Alan Edelman. Julia: a fast dynamic language for technical computing. 2012. URL: https://arxiv.org/abs/1209.5145, doi:10.48550/ARXIV.1209.5145.">BKSE12</a>]</span></p></li>
 <li><p><a class="reference external" href="https://jp.mathworks.com/products/matlab.html">MATLAB</a>: 有償ソフトウェア。製品設計、制御設計のプラットフォーム</p></li>
 <li><p><a class="reference external" href="https://isocpp.org/">C++</a>: GitHubで見かける最近の多くの技術計算オープンソースソフトウェアがC++で記述され、Pythonインターフェースで実行される</p></li>
 <li><p><a class="reference external" href="https://fortran-lang.org/">Fortran</a>: 技術計算言語として長く利用されている。例えば<a class="reference external" href="http://www.netlib.org/blas/">BLAS</a>の他の多くのライブラリのバックエンド</p></li>
@@ -492,20 +492,20 @@ v = \sin 2 y
 配列サイズが大きい場合には、CPUとGPUの差はベンチマークサイトの結果通りでした。
 GPU計算は自動的に単精度実数として実行されるようです。</p>
 <p><img alt="elaplsed_time" src="../_images/elapsed_time.png" /></p>
-<div class="docutils container" id="id11">
+</div>
+</div>
+<div class="section" id="id11">
+<h2>まとめ<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>JITコンパイルJAXとJuliaが非JITコンパイルJAXに比べて非常に高速であることがわかりました。
+非JITコンパイルJAXが通常のPythonと比べてどうなのか、同じアルゴリズムの時にJITコンパイルJAXとJuliaの差はどの程度かは時間があれば調べたいです。</p>
+<p>導入しやすさと実装しやすさは、Juliaが明らかに勝っています。Pythonでなければならない理由がない限りは、私はJuliaを選択します。</p>
+<div class="docutils container" id="id12">
 <dl class="citation">
-<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id2">BKSE12</a></span></dt>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id2">BKSE12</a></span></dt>
 <dd><p>Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and Alan Edelman. Julia: a fast dynamic language for technical computing. 2012. URL: <a class="reference external" href="https://arxiv.org/abs/1209.5145">https://arxiv.org/abs/1209.5145</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.1209.5145">doi:10.48550/ARXIV.1209.5145</a>.</p>
 </dd>
 </dl>
 </div>
-</div>
-</div>
-<div class="section" id="id14">
-<h2>まとめ<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
-<p>JITコンパイルJAXとJuliaが非JITコンパイルJAXに比べて非常に高速であることがわかりました。
-非JITコンパイルJAXが通常のPythonと比べてどうなのか、同じアルゴリズムの時にJITコンパイルJAXとJuliaの差はどの程度かは時間があれば調べたいです。</p>
-<p>導入しやすさと実装しやすさは、Juliaが明らかに勝っています。Pythonでなければならない理由がない限りは、私はJuliaを選択します。</p>
 </div>
 </div>
 
