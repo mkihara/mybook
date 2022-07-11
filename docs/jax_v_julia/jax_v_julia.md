@@ -115,12 +115,12 @@ GPU計算は自動的に単精度実数として実行されるようです。
 
 ![elaplsed_time](elapsed_time.png)
 
-```{bibliography}
-```
-
 ## まとめ
 
 JITコンパイルJAXとJuliaが非JITコンパイルJAXに比べて非常に高速であることがわかりました。
 非JITコンパイルJAXが通常のPythonと比べてどうなのか、同じアルゴリズムの時にJITコンパイルJAXとJuliaの差はどの程度かは時間があれば調べたいです。
 
 導入しやすさと実装しやすさは、Juliaが明らかに勝っています。Pythonでなければならない理由がない限りは、私はJuliaを選択します。
+
+```{bibliography}
+```
