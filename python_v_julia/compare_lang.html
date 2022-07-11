@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python(JAX)とJuliaの比較 &#8212; 技術メモ</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="JAX でポアソン方程式を解く" href="poisson_jax.html" />
+    <link rel="prev" title="技術メモ" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">技術メモ</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   技術メモ
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python v. Julia
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Python(JAX)とJuliaの比較
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="poisson_jax.html">
+   JAX でポアソン方程式を解く
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="poisson_julia.html">
+   Julia でポアソン方程式を解く
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Julia
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../julia/array.html">
+   配列の操作
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/python_v_julia/compare_lang.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mkihara/mybook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   なぜPython(JAX)とJulia？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   検証環境
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   インストール
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jax">
+     JAX
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#julia">
+     Julia
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   読み書きしやさ
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     JAX
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Julia
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   計算時間評価
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Python(JAX)とJuliaの比較</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   なぜPython(JAX)とJulia？
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   検証環境
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   インストール
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#jax">
+     JAX
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#julia">
+     Julia
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   読み書きしやさ
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     JAX
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     Julia
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id8">
+   計算時間評価
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="python-jax-julia">
+<h1>Python(JAX)とJuliaの比較<a class="headerlink" href="#python-jax-julia" title="Permalink to this headline">¶</a></h1>
+<p>Pythonは読み書きしやすいプログラミング言語ですが、計算速度が遅いことが玉に瑕です。
+これを克服する選択肢として、<a class="reference external" href="https://github.com/google/jax">JAX</a>と<a class="reference external" href="https://julialang.org/">Julia</a>を比較しました。</p>
+<div class="section" id="id1">
+<h2>なぜPython(JAX)とJulia？<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>候補は以下のものがありました。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.python.org/">Python</a></p>
+<ul>
+<li><p><a class="reference external" href="https://numpy.org/">NumPy</a> &amp; <a class="reference external" href="https://scipy.org/">SciPy</a>: コンパイルされたCコードを実行する技術計算ライブラリ</p></li>
+<li><p><a class="reference external" href="https://cupy.dev/">CuPy</a>: NumPy、SciPyをGPUで実行</p></li>
+<li><p><a class="reference external" href="https://github.com/nv-legate/cunumeric">cuNumeric</a>: NumPyをGPUで実行。マルチノード対応</p></li>
+<li><p><a class="reference external" href="https://numba.pydata.org/">Numba</a>: Python関数をJITコンパイル</p></li>
+<li><p><a class="reference external" href="https://github.com/google/jax">JAX</a>: Python関数をJITコンパイル。自動微分に対応し<a class="reference external" href="https://www.tensorflow.org/">TensorFlow</a>、<a class="reference external" href="https://pytorch.org/">PyTorch</a>に続く機械学習ライブラリとして期待</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://julialang.org/">Julia</a>: Pythonのように書けて、計算速度はC言語とPythonの間にある<span id="id2">[<a class="reference internal" href="#id10" title="Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and Alan Edelman. Julia: a fast dynamic language for technical computing. 2012. URL: https://arxiv.org/abs/1209.5145, doi:10.48550/ARXIV.1209.5145.">BKSE12</a>]</span></p></li>
+<li><p><a class="reference external" href="https://jp.mathworks.com/products/matlab.html">MATLAB</a>: 有償ソフトウェア。製品設計、制御設計のプラットフォーム</p></li>
+<li><p><a class="reference external" href="https://isocpp.org/">C++</a>: GitHubで見かける最近の多くの技術計算オープンソースソフトウェアがC++で記述され、Pythonインターフェースで実行される</p></li>
+<li><p><a class="reference external" href="https://fortran-lang.org/">Fortran</a>: 技術計算言語として長く利用されている。例えば<a class="reference external" href="http://www.netlib.org/blas/">BLAS</a>の他の多くのライブラリのバックエンド</p></li>
+<li><p><a class="reference external" href="https://www.rust-lang.org/">Rust</a>: 実行速度が速く、デバッグしやすい。</p></li>
+</ul>
+<p>Pythonライブラリの中で、JAXは、NumPy、SciPy、GPU計算、JITコンパイルから自動微分に至るまでをカバーしており、他のPythonライブラリの上位互換と言えそうです。
+Juliaは、Pythonと同じく<a class="reference external" href="https://jupyter.org/">Jupyter</a>環境で逐次実行できるのが良いです。また、技術計算分野に限ってはPythonよりもライブラリが充実しているように思います。
+MATLABは、<a class="reference external" href="https://jp.mathworks.com/help/coder/ug/speed-up-mex-generation-by-using-jit-compilation.html">JITコンパイル可能</a>なようですが、ライセンスを購入しなければ使用できません。
+C++、Fortranは、習熟やデバッグに時間がかかりそうなので避けました。さらなる高速が必要な時に、再度検討します。
+Rustはコンパイルが必要とはいえデバッグしやすいらしいですが、技術計算ライブラリが充実しているようには見えませんでした。
+そういうわけで、今回はJAXとJuliaを選択しました。</p>
+</div>
+<div class="section" id="id3">
+<h2>検証環境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Windows11のUbuntu 20.04 on WSL2で実行しました。Windows10 ver. 20H2以降は、WSLでGPUを利用できます。</p>
+<p>CPUとGPUは、以下の表のものを用いました。</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>浮動小数点演算性能 (単位: TFLOPS)</p></th>
+<th class="text-align:right head"><p>FP32</p></th>
+<th class="text-align:right head"><p>FP64</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>CPU: AMD Ryzen9 5950X</p></td>
+<td class="text-align:right"><p></p></td>
+<td class="text-align:right"><p>0.97</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>GPU: NVIDIA GeForce RTX 3090</p></td>
+<td class="text-align:right"><p>39.1</p></td>
+<td class="text-align:right"><p>0.61</p></td>
+</tr>
+</tbody>
+</table>
+<!-- 上記数値は https://gadgetversus.com/ を参考にしました。 -->
+<p>どちらも2020年秋発売のメインストリーム向けフラグシップなので、CPU計算とGPU計算の比較にはちょうど良いです。</p>
+</div>
+<div class="section" id="id4">
+<h2>インストール<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="jax">
+<h3>JAX<a class="headerlink" href="#jax" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/google/jax#installation">公式のインストール手順</a>にしたがってインストールしました。
+WindowsでGPUバージョンのJAXを利用する場合、<a class="reference external" href="https://docs.microsoft.com/ja-jp/windows/ai/directml/gpu-cuda-in-wsl">CUDA on WSL</a>を利用します。</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>WSLではないWindows上で実行したい場合、ソースからビルドする必要があります。</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code>パッケージに、CUDAとCuDNNがバンドルされていないので、別途インストールが必要です。
+CUDAは<a class="reference external" href="https://docs.nvidia.com/cuda/wsl-user-guide/index.html#getting-started-with-cuda-on-wsl">ここ</a>、CuDNNは、<a class="reference external" href="https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html">ここ</a>に記載された通りの手順で導入しました。少し面倒です。</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>JAX、CUDA、CuDNNのバージョンを一致させなければ動作しません。</p>
+</div>
+</div>
+<div class="section" id="julia">
+<h3>Julia<a class="headerlink" href="#julia" title="Permalink to this headline">¶</a></h3>
+<p>Julia のインストールは、<a class="reference external" href="https://julialang.org/downloads/">公式</a>からダウンロードして、解凍してPathを通すだけです。</p>
+<p>GPU計算(CUDA)の利用には、<a class="reference external" href="https://github.com/JuliaGPU/CUDA.jl">CUDA.jl</a>を利用します。
+Julia のコマンドプロンプトで以下のコマンド1行だけでセットアップ完了です。</p>
+<div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">julia</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">Pkg</span><span class="p">;</span> <span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;CUDA&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>手順がシンプルで、WindowsとLinuxで共通しているのが素晴らしいです。
+Ubuntuパッケージマネージャ<code class="docutils literal notranslate"><span class="pre">apt</span></code>でインストールできないのは、むしろ利点のように思えます。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>読み書きしやさ<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Term 1
+: Definition</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Term 3
+: Definition
+
+Term 4
+: Definition
+</pre></div>
+</div>
+<p>Term 2
+: Definition</p>
+<div class="section" id="id6">
+<h3>JAX<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>JITコンパイルはデコレータ<code class="docutils literal notranslate"><span class="pre">&#64;jit</span></code>で指示します。
+インスタンス変数に配列を持つclass内methodのJITコンパイルにはやや面倒な対策が必要でした(<a class="reference external" href="https://jax.readthedocs.io/en/latest/faq.html#how-to-use-jit-with-methods">公式FAQ</a>)。
+Pythonらしさはなくなりますが、classを使わずに書くのが簡単そうです。
+また、jax.numpyではない通常のnumpyがあるとJITコンパイルに失敗するので、膨大なライブラリがあるというPythonの利点を活かせないこともありあそうです。試していませんが、SymPyで作成した関数をJITコンパイルできないとしたら技術計算用途では痛いです。</p>
+<p>PythonのAPIドキュメントは、引数の説明から、実行例まで丁寧にまとめられたものが多く、とても役に立ちます。</p>
+</div>
+<div class="section" id="id7">
+<h3>Julia<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>classの概念がなく、function (Pythonでいうmethod) で記述します。
+JITコンパイルはユーザーが明示的に指示する必要がなく、JAXのようにJITコンパイルだけの特殊な構文がないのは良かったです。</p>
+<p>しかし、関数の引数に何を与えればよいかAPIドキュメントを読んでもわからず悩むことがよくありました。
+docstringに引数の説明を記述しないのは風習なのでしょうか。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>計算時間評価<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p><img alt="elaplsed_time" src="../_images/elapsed_time.png" /></p>
+<div class="docutils container" id="id9">
+<dl class="citation">
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id2">BKSE12</a></span></dt>
+<dd><p>Jeff Bezanson, Stefan Karpinski, Viral B. Shah, and Alan Edelman. Julia: a fast dynamic language for technical computing. 2012. URL: <a class="reference external" href="https://arxiv.org/abs/1209.5145">https://arxiv.org/abs/1209.5145</a>, <a class="reference external" href="https://doi.org/10.48550/ARXIV.1209.5145">doi:10.48550/ARXIV.1209.5145</a>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./python_v_julia"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">技術メモ</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="poisson_jax.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">JAX でポアソン方程式を解く</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Mizuki KIHARA<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
