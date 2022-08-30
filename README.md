@@ -1,5 +1,7 @@
 # My Book
 
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://mkihara.github.io/mybook/)
+
 ## Install requirements
 
 ```sh
@@ -19,5 +21,3 @@ jb build docs
 ```sh
 ghp-import -n -p -f docs/_build/html
 ```
-
-数分後に[ここ](https://mkihara.github.io/mybook/)で公開されたサイトを確認できる。
